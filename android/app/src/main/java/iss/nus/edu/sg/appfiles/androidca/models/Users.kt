@@ -1,4 +1,7 @@
 package iss.nus.edu.sg.appfiles.androidca.models
 
-class Users {
-}
+data class Users(
+    val username: String,
+    val password: String,
+    val isPaid: Boolean = false
+)

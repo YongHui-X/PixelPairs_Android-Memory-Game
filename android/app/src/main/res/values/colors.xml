@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="Dusk_Blue">#464D77</color>
+    <color name="Teal">#36827F</color>
+    <color name="Royal_Gold">#F9DB6D</color>
+    <color name="Snow">#F4EDED</color>
+    <color name="Dusty_Taupe">#877666</color>
+
 </resources>
