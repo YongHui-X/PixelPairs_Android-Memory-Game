@@ -1,19 +1,16 @@
 package iss.nus.edu.sg.appfiles.androidca
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import iss.nus.edu.sg.appfiles.androidca.models.Users
 import android.content.Intent
+import iss.nus.edu.sg.appfiles.androidca.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var username: EditText
-    private lateinit var password: EditText
-    private lateinit var login: Button
+    private lateinit var binding: ActivityLoginBinding
 
     private val users = listOf(
         Users("Tin","test",true),
@@ -24,25 +21,27 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_login)
 
-        username = findViewById<EditText>(R.id.login_username)
-        password = findViewById<EditText>(R.id.login_password)
-        login = findViewById<Button>(R.id.btn_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        login.setOnClickListener {
-            val username = username.text.toString()
-            val password = password.text.toString()
+        initButtons()
+    }
+
+    fun initButtons(){
+        binding.btnLogin.setOnClickListener {
+            val username = binding.loginUsername.text.toString()
+            val password = binding.loginPassword.text.toString()
 
             if (username.isEmpty() || password.isEmpty()){
                 Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            } else {
+                auth(username, password)
             }
-            auth(username, password)
         }
     }
 
-    private fun auth(username: String, password: String){
+    fun auth(username: String, password: String){
         val user = users.find {
             it.username == username && it.password == password
         }
@@ -50,8 +49,10 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Login successful.", Toast.LENGTH_SHORT).show()
 
             val intent = Intent(this, FetchActivity::class.java)
+
             intent.putExtra("username", user.username)
             intent.putExtra("isPaid", user.isPaid)
+
             startActivity(intent)
             finish()
         } else {
