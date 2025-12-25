@@ -4,4 +4,5 @@
     <string name="input_username">Enter Username</string>
     <string name="input_password">Enter Password</string>
     <string name="game_name">Flip-A-Card: Memory Game</string>
+    <string name="tag_line">Match • Flip • Win</string>
 </resources>
