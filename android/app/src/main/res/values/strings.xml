@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AndroidCA</string>
+    <string name="welcome">Welcome to the memory game! &#10;
+        Enter your image URL to begin.</string>
+    <string name="url_text">Type your URL here.</string>
+    <string name="fetchBtn_text">Fetch</string>
 </resources>
