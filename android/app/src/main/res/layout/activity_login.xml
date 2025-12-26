@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_bg"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:background="@color/coral_pink"
+            android:gravity="center"
+            android:rotation="-15"
+            android:text="🪻"
+            android:textSize="50sp"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@color/bright_cyan"
+            android:gravity="center"
+            android:rotation="10"
+            android:text="🧠"
+            android:textColor="@color/dark_bg"
+            android:textSize="40sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:background="@color/deep_purple"
+            android:gravity="center"
+            android:rotation="-10"
+            android:text="🃏"
+            android:textColor="@color/soft_white"
+            android:textSize="50sp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="@string/game_name"
+        android:textAllCaps="true"
+        android:textColor="@color/soft_white"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="@string/tag_line"
+        android:textColor="@color/bright_cyan"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/login_username"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:autofillHints="username"
+        android:backgroundTint="@color/soft_white"
+        android:hint="@string/input_username"
+        android:inputType="text"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textColor="@color/soft_white"
+        android:textColorHint="@color/soft_white"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/login_password"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="25dp"
+        android:autofillHints="password"
+        android:backgroundTint="@color/soft_white"
+        android:hint="@string/input_password"
+        android:inputType="textPassword"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textColor="@color/soft_white"
+        android:textColorHint="@color/soft_white"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:textAllCaps="true"
+        android:backgroundTint="@color/soft_white"
+        android:text="@string/btn_login"
+        android:textColor="@color/deep_purple"
+        android:textSize="20sp"
+        android:backgroundTintMode="@color/soft_white"/>
+
+</LinearLayout>

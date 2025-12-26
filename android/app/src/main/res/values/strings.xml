@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">AndroidCA</string>
-    <string name="welcome">Welcome to the memory game! &#10;
-        Enter your image URL to begin.</string>
+    <string name="btn_login">Login</string>
+    <string name="input_username">Enter Username</string>
+    <string name="input_password">Enter Password</string>
+    <string name="game_name">Flip-A-Card: Memory Game</string>
+    <string name="tag_line">Match • Flip • Win</string>
+    <string name="welcome">Welcome to the memory game! &#10; Enter your image URL to begin.</string>
     <string name="url_text">Type your URL here.</string>
     <string name="fetchBtn_text">Fetch</string>
     <string name="progress_text">Downloading placeholder</string>
