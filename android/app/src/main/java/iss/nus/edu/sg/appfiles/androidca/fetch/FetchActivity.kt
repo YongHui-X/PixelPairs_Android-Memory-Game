@@ -1,4 +1,4 @@
-package iss.nus.edu.sg.appfiles.androidca
+package iss.nus.edu.sg.appfiles.androidca.fetch
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
