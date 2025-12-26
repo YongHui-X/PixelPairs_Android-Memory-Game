@@ -24,10 +24,10 @@ CREATE TABLE UserDetails(
 # Create scores table
 CREATE TABLE Scores(
     Id bigint NOT NULL auto_increment,
-	UserDetail bigint NOT NULL,
+	UserDetailId bigint NOT NULL,
 	Score bigint NOT NULL,
 	PRIMARY KEY (Id),
-    FOREIGN KEY (UserDetail) REFERENCES UserDetails(Id)
+    FOREIGN KEY (UserDetailId) REFERENCES UserDetails(Id)
 );
 
 # Insert data into table Users
@@ -48,7 +48,7 @@ VALUES (1, 'johndoe', 'Free'),
         (5, 'sarahjane', 'Free'),
         (6, 'johnnylim', 'Paid');
         
-INSERT INTO Scores(UserDetail, Score) 
+INSERT INTO Scores(UserDetailId, Score) 
 VALUES (1, 100),
        (1, 150),
        (2, 125),
