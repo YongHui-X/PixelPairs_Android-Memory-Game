@@ -486,23 +486,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Sandy\\.nuget\\packages\\": {},
+    "C:\\Users\\chit su hein\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Sandy\\source\\repos\\GDIPSA-Team2\\AndroidCA\\DotNetBackend\\DotNetBackend\\DotNetBackend.csproj",
+      "projectUniqueName": "C:\\Users\\chit su hein\\source\\repos\\GDIPSA-Team2\\AndroidCA\\DotNetBackend\\DotNetBackend\\DotNetBackend.csproj",
       "projectName": "DotNetBackend",
-      "projectPath": "C:\\Users\\Sandy\\source\\repos\\GDIPSA-Team2\\AndroidCA\\DotNetBackend\\DotNetBackend\\DotNetBackend.csproj",
-      "packagesPath": "C:\\Users\\Sandy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Sandy\\source\\repos\\GDIPSA-Team2\\AndroidCA\\DotNetBackend\\DotNetBackend\\obj\\",
+      "projectPath": "C:\\Users\\chit su hein\\source\\repos\\GDIPSA-Team2\\AndroidCA\\DotNetBackend\\DotNetBackend\\DotNetBackend.csproj",
+      "packagesPath": "C:\\Users\\chit su hein\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\chit su hein\\source\\repos\\GDIPSA-Team2\\AndroidCA\\DotNetBackend\\DotNetBackend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Sandy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\chit su hein\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
