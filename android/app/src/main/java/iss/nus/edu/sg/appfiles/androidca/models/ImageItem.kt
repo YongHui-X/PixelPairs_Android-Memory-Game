@@ -1,8 +1,7 @@
 package iss.nus.edu.sg.appfiles.androidca.models
 
-import android.graphics.Bitmap
-
 data class ImageItem(
-    val bitmap: Bitmap,
+//    val bitmap: Bitmap,
+    var url: String,
     var isSelected: Boolean = false
 )

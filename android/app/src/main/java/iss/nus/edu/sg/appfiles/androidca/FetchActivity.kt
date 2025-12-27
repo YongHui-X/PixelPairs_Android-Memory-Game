@@ -3,17 +3,18 @@ package iss.nus.edu.sg.appfiles.androidca
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import iss.nus.edu.sg.appfiles.androidca.databinding.ActivityFetchBinding
 import iss.nus.edu.sg.appfiles.androidca.models.ImageItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
+
 
 class FetchActivity : AppCompatActivity() {
 
@@ -65,9 +66,9 @@ class FetchActivity : AppCompatActivity() {
             val request = Request.Builder()
                 .url(url)
                 .header(
-                    "User-Agent",
-                    "Mozilla"
+                    "User-Agent", "Mozilla"
                 )
+                .header("Referer", "https://stocksnap.io/")
                 .build()
 
             try {
@@ -85,7 +86,7 @@ class FetchActivity : AppCompatActivity() {
                     val imgElements = doc.select("img[src], img[data-src]")
 
                     for(element in imgElements){
-                        if (images.size >= 20) break
+                        if (!isActive || images.size >= 20) break
 
                         var imgUrl = element.absUrl("data-src")
                         if (imgUrl.isEmpty()){
@@ -94,31 +95,12 @@ class FetchActivity : AppCompatActivity() {
 
                         //filter for actual content and ignore icons/logos
                         if(imgUrl.isNotEmpty() && imgUrl.contains("cdn.stocksnap.io")){
-                            try{
-                                //open connections
-                                val connection = java.net.URL(imgUrl).openConnection() as java.net.HttpURLConnection
-                                connection.setRequestProperty("User-Agent", "Mozilla/5.0")
-                                connection.connect()
-                                val input = connection.getInputStream()
 
-                                //decode stream into bitmap for adaptor here
-                                val bitmap = android.graphics.BitmapFactory.decodeStream(input)
-                                connection.disconnect()
-
-                                if (bitmap != null) {
-                                    //resize to 300x300
-                                    val scaledBitmap = bitmap.scale( 300, 300, true)
-                                    //creates imageitem and add to list
-
-                                    withContext(Dispatchers.Main){
-                                        images.add(ImageItem(bitmap = scaledBitmap))
-                                        android.util.Log.d("FETCH_TEST",
-                                            "Success! Image #${images.size} downloaded and scaled.")
-                                        updateProgress(images.size)
-                                    }
-                                }
-                            } catch (e: Exception){
-                                e.printStackTrace()
+                            withContext(Dispatchers.Main){
+                                images.add(ImageItem(url = imgUrl))
+                                android.util.Log.d("FETCH_TEST",
+                                    "Success! Image #${images.size} downloaded")
+                                updateProgress(images.size)
                             }
                         }
                     }
