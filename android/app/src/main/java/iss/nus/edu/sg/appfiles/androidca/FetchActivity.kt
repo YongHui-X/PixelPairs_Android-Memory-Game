@@ -48,7 +48,6 @@ class FetchActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     private fun startFetch (url: String){
@@ -56,6 +55,9 @@ class FetchActivity : AppCompatActivity() {
 
         //reset
         images.clear()
+        repeat(20){
+            images.add(ImageItem(url=""))
+        }
         imageAdapter.notifyDataSetChanged()
         updateProgress(0)
 
@@ -85,8 +87,9 @@ class FetchActivity : AppCompatActivity() {
                     //pulls out tags with <img> tag
                     val imgElements = doc.select("img[src], img[data-src]")
 
+                    var count = 0
                     for(element in imgElements){
-                        if (!isActive || images.size >= 20) break
+                        if (!isActive || count >= 20) break
 
                         var imgUrl = element.absUrl("data-src")
                         if (imgUrl.isEmpty()){
@@ -97,12 +100,15 @@ class FetchActivity : AppCompatActivity() {
                         if(imgUrl.isNotEmpty() && imgUrl.contains("cdn.stocksnap.io")){
 
                             withContext(Dispatchers.Main){
-                                images.add(ImageItem(url = imgUrl))
+                                images[count] = ImageItem(url = imgUrl)
+                                imageAdapter.notifyDataSetChanged()
+                                count++
                                 android.util.Log.d("FETCH_TEST",
-                                    "Success! Image #${images.size} downloaded")
-                                updateProgress(images.size)
+                                    "Success! Image #$count downloaded")
+                                updateProgress(count)
                             }
                         }
+                        if (count > 1) kotlinx.coroutines.delay(500L)
                     }
                     if (images.isEmpty()){
                         showError("No images found")
