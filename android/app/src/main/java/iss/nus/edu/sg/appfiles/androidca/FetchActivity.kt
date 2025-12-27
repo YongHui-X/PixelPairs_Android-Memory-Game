@@ -14,6 +14,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
+import java.io.File
 
 
 class FetchActivity : AppCompatActivity() {
@@ -24,6 +25,9 @@ class FetchActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFetchBinding
     private var fetchJob: Job? = null
 
+    private var username: String? = null
+    private var isPaid: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFetchBinding.inflate(layoutInflater)
@@ -32,6 +36,9 @@ class FetchActivity : AppCompatActivity() {
 
         imageAdapter = ImageAdapter(this, images)
         binding.gridImage.adapter = imageAdapter
+
+        username = intent.getStringExtra("username")
+        isPaid = intent.getBooleanExtra("isPaid", false)
 
         initFetch()
     }
@@ -137,5 +144,22 @@ class FetchActivity : AppCompatActivity() {
         withContext(Dispatchers.Main){
             Toast.makeText(this@FetchActivity, message, Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun getGameFolder(fileName: String) : File {
+        val path = filesDir
+        val fileName = "game_images"
+
+        val folder = File(path, fileName)
+
+        if (!folder.exists()) {
+            folder.mkdir()
+        }
+        return folder
+    }
+
+    private fun getInternalFile(imageName: String): File{
+        val folder = getGameFolder(imageName)
+        return File(folder, imageName)
     }
 }
