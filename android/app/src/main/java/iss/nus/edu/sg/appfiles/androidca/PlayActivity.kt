@@ -1,20 +1,32 @@
 package iss.nus.edu.sg.appfiles.androidca
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class PlayActivity : AppCompatActivity() {
+    private lateinit var adManager: AdManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_play)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+
+        // Display ads on app
+        val isPaidUser = intent.getBooleanExtra("isPaid", false)
+        saveUserType(isPaidUser)
+        adManager = AdManager(this)
+        adManager.startAds(findViewById<ImageView>(R.id.ads_image))
     }
+
+    // Display ads on app function
+    private fun saveUserType(isPaid: Boolean){
+        val sharedPref = getSharedPreferences("UserType", MODE_PRIVATE)
+        sharedPref.edit().putBoolean("isPaid", isPaid).apply()
+
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        adManager.stopAds()
+    }
+
 }
