@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import iss.nus.edu.sg.appfiles.androidca.models.Users
 import android.content.Intent
 import iss.nus.edu.sg.appfiles.androidca.databinding.ActivityLoginBinding
-import iss.nus.edu.sg.appfiles.androidca.fetch.FetchActivity
+import iss.nus.edu.sg.appfiles.androidca.FetchActivity
 
 class LoginActivity : AppCompatActivity() {
 

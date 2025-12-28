@@ -108,7 +108,6 @@
         android:text="@string/btn_login"
         android:textColor="@color/deep_purple"
         android:textSize="20sp"
-        app:cornerRadius="50dp"
         android:backgroundTintMode="@color/soft_white"/>
 
 </LinearLayout>
