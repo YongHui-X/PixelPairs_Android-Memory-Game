@@ -1,5 +1,6 @@
 package iss.nus.edu.sg.appfiles.androidca
 
+import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -49,7 +50,9 @@ class LoginActivity : AppCompatActivity() {
         if (user != null) {
             Toast.makeText(this, "Login successful.", Toast.LENGTH_SHORT).show()
 
-            val intent = Intent(this, FetchActivity::class.java)
+            val intent = Intent(this, PlayActivity::class.java)
+
+
 
             intent.putExtra("username", user.username)
             intent.putExtra("isPaid", user.isPaid)

@@ -25,7 +25,7 @@
         app:layout_constraintDimensionRatio="1:1"
         android:contentDescription="game card"
 
-        tools:src="@drawable/sample_card_image"
+        tools:src="@drawable/card_back"
         tools:ignore="ContentDescription"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

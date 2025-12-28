@@ -66,15 +66,14 @@
         android:id="@+id/rvCards"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/tvGameStatus"
-        app:layout_constraintBottom_toTopOf="@id/controlBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/controlBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGameStatus"
         app:spanCount="3"
-        tools:listitem="@layout/item_card"
-        tools:itemCount="12"/>
+        tools:itemCount="12"
+        tools:listitem="@layout/item_card" />
 
     <LinearLayout
         android:id="@+id/controlBar"
