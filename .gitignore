@@ -1,36 +1,50 @@
-# Gradle files
-.gradle/
-build/
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
 
-# Local configuration file (sdk path, etc)
-local.properties
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
 
-# Log/OS Files
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Visual Studio cache
+*.suo
+*.user
+.vs/
+
+# ASP.NET
 *.log
+*.vspscc
+*.vssscc
 
-# Android Studio generated files and folders
-captures/
-.externalNativeBuild/
-.cxx/
-*.aab
-*.apk
-output-metadata.json
-
-# IntelliJ
-*.iml
+# Android Studio / IntelliJ IDEA
 .idea/
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
+*.iml
+.gradle/
+local.properties
+captures/
 
-# Keystore files
-*.jks
-*.keystore
+# Android
+*.apk
+*.ap_
+*.dex
+*.class
+build/
+.kotlin/
 
-# Google Services (e.g. APIs or Firebase)
-google-services.json
-
-# Android Profiling
-*.hprof
-
-.fake
+# DotNet Backend build files
+DotNetBackend/**/bin/
+DotNetBackend/**/obj/
+DotNetBackend/**/*.user
