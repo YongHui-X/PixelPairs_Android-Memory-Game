@@ -1,6 +1,10 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/
 [Oo]bj/
+*.cache
+**/obj/
+**/bin/
+project.*.json
 
 # Logs
 Logs/
@@ -19,6 +23,7 @@ TestResults
 *.suo
 *.user
 *.sln.docstates
+*.userosscache
 
 # Build results
 [Dd]ebug/
@@ -43,6 +48,9 @@ x64/
 *.vspscc
 *.vssscc
 .builds
+*.cache
+*.dll
+*.exe
 
 # Visual C++ cache files
 ipch/
@@ -87,6 +95,11 @@ publish
 
 # NuGet Packages Directory
 packages
+project.assets.json
+project.nuget.cache
+*.csproj.nuget.dgspec.json
+*.csproj.nuget.g.props
+*.csproj.nuget.g.targets
 
 # Windows Azure Build Output
 csx
