@@ -15,7 +15,7 @@ class CardAdapter(
     private val onCardClick: (position: Int, imageView: ImageView) -> Unit
 ) : RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
-    inner class CardViewHolder(itemView: View) :
+     class CardViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
         val ivCard: ImageView = itemView.findViewById(R.id.ivCard)
