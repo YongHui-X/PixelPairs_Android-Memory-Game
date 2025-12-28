@@ -163,6 +163,8 @@ class FetchActivity : AppCompatActivity() {
     }
 
     private fun updateProgress(count: Int) = binding.apply {
+        val percent = (count * 100) / 20
+        progressBar.progress = percent
         downloadText.text = "Downloading $count of 20 images."
 
         if (count == 20) {
