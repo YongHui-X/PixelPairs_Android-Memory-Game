@@ -10,6 +10,7 @@
 
     <TextView
         android:id="@+id/welcome"
+        android:paddingTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -37,10 +38,10 @@
         <Button
             android:id="@+id/fetchBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
-            android:textColor="@color/deep_purple"
+            android:textColor="@color/dark_bg"
             android:backgroundTint="@color/soft_white"
             android:text="@string/fetchBtn_text" />
     </LinearLayout>
@@ -71,7 +72,34 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="20dp"
         android:text="@string/progress_text"/>
+
+    <TextView
+        android:id="@+id/selectionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:text="Selected: 0 / 6"
+        android:textColor="@color/soft_white"
+        android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/playBtn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="20dp"
+        android:text="Start Playing"
+        android:textColor="@color/dark_bg"
+        android:backgroundTint="@color/soft_white"
+        android:enabled="false"/>
+
+    <Button
+        android:id="@+id/btnShowLeaderboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Leaderboard"
+        android:textSize="16sp" />
 
 </LinearLayout>

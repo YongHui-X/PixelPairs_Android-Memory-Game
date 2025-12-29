@@ -14,152 +14,176 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
-import java.io.File
-
+import android.content.Intent
+import android.view.View
+import android.widget.Button
+import iss.nus.edu.sg.appfiles.androidca.models.LeaderboardActivity
 
 class FetchActivity : AppCompatActivity() {
 
     private lateinit var imageAdapter: ImageAdapter
     private val images = mutableListOf<ImageItem>()
-
     private lateinit var binding: ActivityFetchBinding
     private var fetchJob: Job? = null
 
     private var username: String? = null
     private var isPaid: Boolean = false
+    private var selectedCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFetchBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
-
-        imageAdapter = ImageAdapter(this, images)
-        binding.gridImage.adapter = imageAdapter
 
         username = intent.getStringExtra("username")
         isPaid = intent.getBooleanExtra("isPaid", false)
 
-        initFetch()
+        setupUI()
     }
 
-    fun initFetch() {
-        binding.fetchBtn.setOnClickListener {
-            val userInputUrl = binding.urlInput.text.toString()
+    private fun setupUI() {
+        binding.apply {
+            hideProgressElements()
 
-            if (userInputUrl.isNotEmpty()) {
-                //start fetch
-                startFetch(userInputUrl)
-            } else {
-                Toast.makeText(this, "Try again. Fill in something this time!",
-                    Toast.LENGTH_SHORT).show()
+            imageAdapter = ImageAdapter(this@FetchActivity, images) { count ->
+                selectedCount = count
+                updatePlayButton()
+            }
+            gridImage.adapter = imageAdapter
+
+            playBtn.visibility = View.GONE
+            playBtn.isEnabled = false
+            playBtn.setOnClickListener {
+                if (selectedCount == 6) {
+                    startPlayActivity()
+                } else {
+                    Toast.makeText(this@FetchActivity, "Please select exactly 6 images", Toast.LENGTH_SHORT).show()
+                }
+            }
+            fetchBtn.setOnClickListener {
+                val userInputUrl = urlInput.text.toString()
+                if (userInputUrl.isNotEmpty()) {
+                    startFetch(userInputUrl)
+                } else {
+                    Toast.makeText(this@FetchActivity, "Try again.", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
-    private fun startFetch (url: String){
-        fetchJob?.cancel()
+    private fun hideProgressElements() = binding.apply {
+        progressBar.visibility = View.GONE
+        downloadText.visibility = View.GONE
+        selectionText.visibility = View.GONE
+    }
 
-        //reset
+    private fun showProgressElements() = binding.apply {
+        progressBar.visibility = View.VISIBLE
+        downloadText.visibility = View.VISIBLE
+        selectionText.visibility = View.VISIBLE
+    }
+
+    private fun updatePlayButton() = binding.apply {
+        if (selectedCount == 6){
+            playBtn.isEnabled = true
+            playBtn.visibility = View.VISIBLE
+        } else {
+            playBtn.isEnabled = false
+            playBtn.visibility = View.GONE
+        }
+        selectionText.text = "Selected: $selectedCount / 6"
+    }
+
+    private fun startPlayActivity() {
+        val selectedImages = images.filter { it.isSelected }.map { it.url }
+
+        val btnShowLeaderboard = findViewById<Button>(R.id.btnShowLeaderboard)
+        btnShowLeaderboard.setOnClickListener {
+            val intent = Intent(this, LeaderboardActivity::class.java)
+            startActivity(intent)
+        }
+
+        Intent(this, PlayActivity::class.java).apply {
+            putStringArrayListExtra("selectedImages", ArrayList(selectedImages))
+            putExtra("username", username)
+            putExtra("isPaid", isPaid)
+        }.also { startActivity(it) }
+    }
+
+    private fun startFetch(url: String) {
+        fetchJob?.cancel()
+        showProgressElements()
+
         images.clear()
-        repeat(20){
-            images.add(ImageItem(url=""))
+        selectedCount = 0
+        updatePlayButton()
+
+        repeat(20) {
+            images.add(ImageItem(url = "", isSelected = false))
         }
         imageAdapter.notifyDataSetChanged()
         updateProgress(0)
 
-//        val url = "https://stocksnap.io/search/food"
-
-        fetchJob = lifecycleScope.launch(Dispatchers.IO){
+        fetchJob = lifecycleScope.launch(Dispatchers.IO) {
             val client = OkHttpClient.Builder().build()
             val request = Request.Builder()
                 .url(url)
-                .header(
-                    "User-Agent", "Mozilla"
-                )
+                .header("User-Agent", "Mozilla")
                 .header("Referer", "https://stocksnap.io/")
                 .build()
 
             try {
                 client.newCall(request).execute().use { response ->
-                    if (!response.isSuccessful){
+                    if (!response.isSuccessful) {
                         showError("Server Error : ${response.code}")
                         return@use
                     }
 
-                    //takes the content of the website and convert it into one piece of string
                     val html = response.body?.string() ?: ""
-                    val doc = Jsoup.parse(html, url) //turn into doc obj
-
-                    //pulls out tags with <img> tag
+                    val doc = Jsoup.parse(html, url)
                     val imgElements = doc.select("img[src], img[data-src]")
 
                     var count = 0
-                    for(element in imgElements){
+                    for (element in imgElements) {
                         if (!isActive || count >= 20) break
 
-                        var imgUrl = element.absUrl("data-src")
-                        if (imgUrl.isEmpty()){
-                            imgUrl = element.absUrl("src")
-                        }
+                        val imgUrl = element.absUrl("data-src").takeIf { it.isNotEmpty() }
+                            ?: element.absUrl("src")
 
-                        //filter for actual content and ignore icons/logos
-                        if(imgUrl.isNotEmpty() && imgUrl.contains("cdn.stocksnap.io")){
-
-                            withContext(Dispatchers.Main){
-                                images[count] = ImageItem(url = imgUrl)
+                        if (imgUrl.isNotEmpty() && imgUrl.contains("cdn.stocksnap.io")) {
+                            withContext(Dispatchers.Main) {
+                                images[count] = ImageItem(url = imgUrl, isSelected = false)
                                 imageAdapter.notifyDataSetChanged()
                                 count++
-                                android.util.Log.d("FETCH_TEST",
-                                    "Success! Image #$count downloaded")
                                 updateProgress(count)
                             }
                         }
                         if (count > 1) kotlinx.coroutines.delay(500L)
                     }
-                    if (images.isEmpty()){
+                    if (images.isEmpty()) {
                         showError("No images found")
                     }
                 }
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 showError("Error: ${e.message}")
             }
         }
     }
 
-    private fun updateProgress(count: Int){
-        val percent= (count * 100) / 20
+    private fun updateProgress(count: Int) = binding.apply {
+        val percent = (count * 100) / 20
+        progressBar.progress = percent
+        downloadText.text = "Downloading $count of 20 images."
 
-        binding.progressBar.progress = percent
-        binding.downloadText.text = "Downloading $count of 20 images."
-
-        imageAdapter.notifyDataSetChanged()
-
-        if(count == 20){
-            Toast.makeText(this@FetchActivity, "Fetch Completed!", Toast.LENGTH_SHORT).show()
+        if (count == 20) {
+            Toast.makeText(this@FetchActivity, "Fetch Completed. Select 6 images to play.",
+                Toast.LENGTH_SHORT).show()
         }
     }
 
     private suspend fun showError(message: String) {
-        withContext(Dispatchers.Main){
+        withContext(Dispatchers.Main) {
             Toast.makeText(this@FetchActivity, message, Toast.LENGTH_LONG).show()
         }
-    }
-
-    private fun getGameFolder(fileName: String) : File {
-        val path = filesDir
-        val fileName = "game_images"
-
-        val folder = File(path, fileName)
-
-        if (!folder.exists()) {
-            folder.mkdir()
-        }
-        return folder
-    }
-
-    private fun getInternalFile(imageName: String): File{
-        val folder = getGameFolder(imageName)
-        return File(folder, imageName)
     }
 }
