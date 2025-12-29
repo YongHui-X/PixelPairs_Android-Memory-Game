@@ -5,7 +5,7 @@ namespace DotNetBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : Controller
+    public class AuthController : ControllerBase
     {
         private readonly string connectionString =
             "server=localhost;database=AndroidCA;uid=root;pwd=Zayar2002";
@@ -13,23 +13,14 @@ namespace DotNetBackend.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
-            if (string.IsNullOrEmpty(request.Username) || string.IsNullOrEmpty(request.Password))
-            {
-                return BadRequest(new
-                {
-                    success = false,
-                    message = "Username and password are required"
-                });
-            }
-
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
 
                 string query = @"SELECT u.Username, ud.UserType 
-                        FROM Users u 
-                        INNER JOIN UserDetails ud ON u.Username = ud.Username
-                        WHERE u.Username = @username AND u.Password = @password";
+                                FROM Users u 
+                                INNER JOIN UserDetails ud ON u.Username = ud.Username
+                                WHERE u.Username = @username AND u.Password = @password";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
@@ -40,29 +31,25 @@ namespace DotNetBackend.Controllers
                     {
                         if (reader.Read())
                         {
-                            string username = reader.GetString("Username");
-                            string userType = reader.GetString("UserType");
-
                             return Ok(new
                             {
                                 success = true,
-                                username = username,
-                                isPaid = userType == "Paid"
+                                username = reader.GetString("Username"),
+                                isPaid = reader.GetString("UserType") == "Paid"
                             });
                         }
-                        else
+                        
+                        return Unauthorized(new
                         {
-                            return Unauthorized(new
-                            {
-                                success = false,
-                                message = "Invalid username or password"
-                            });
-                        }
+                            success = false,
+                            message = "Invalid username or password"
+                        });
                     }
                 }
             }
         }
     }
+
     public class LoginRequest
     {
         public string Username { get; set; }
