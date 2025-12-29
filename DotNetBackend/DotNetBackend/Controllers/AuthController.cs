@@ -7,8 +7,7 @@ namespace DotNetBackend.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly string connectionString =
-            "server=localhost;database=AndroidCA;uid=root;pwd=Zayar2002";
+        private readonly string connectionString = "server=localhost;database=AndroidCA;uid=root;pwd=Zayar2002";
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
@@ -52,7 +51,7 @@ namespace DotNetBackend.Controllers
 
     public class LoginRequest
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public string Username { get; }
+        public string Password { get; }
     }
 }
