@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loadingFragment">
+
+    <fragment
+        android:id="@+id/loadingFragment"
+        android:name="iss.nus.edu.sg.appfiles.androidca.LoadingFragment"
+        android:label="fragment_loading"
+        tools:layout="@layout/fragment_loading">
+        <action
+            android:id="@+id/action_loadingFragment_to_leaderboardFragment"
+            app:destination="@id/leaderboardFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/leaderboardFragment"
+        android:name="iss.nus.edu.sg.appfiles.androidca.LeaderboardFragment"
+        android:label="fragment_leaderboard"
+        tools:layout="@layout/fragment_leaderboard">
+    </fragment>
+
+</navigation>

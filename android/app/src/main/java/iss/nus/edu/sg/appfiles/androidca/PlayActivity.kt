@@ -1,20 +1,31 @@
 package iss.nus.edu.sg.appfiles.androidca
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class PlayActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_play)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		enableEdgeToEdge()
+		setContentView(R.layout.activity_play)
+		ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+			val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+			v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+			insets
+		}
+
+		// TEMPORARY TEST BUTTON
+		findViewById<Button>(R.id.testButton).setOnClickListener {
+			val intent = Intent(this, LeaderboardActivity::class.java).apply {
+				putExtra("USERNAME", "johndoe")
+				putExtra("SCORE", 9999)
+			}
+			startActivity(intent)
+		}
+	}
 }
