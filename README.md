@@ -1,4 +1,4 @@
-## Color Reference
+# Color Reference
 
 For documentation purposes, here are the colors used:
 
@@ -8,4 +8,12 @@ For documentation purposes, here are the colors used:
 - **Soft White:** `#F5F5F5`
 - **Dark Background:** `#1A1A2E`
 
-Tank q.
+---
+
+## "Network Error" in Android with .NET
+
+- Check .NET app is running (For example: http://10.0.2.2:5119/)
+- Verify port number matches in Android code
+- For emulator: use `10.0.2.2:`
+- Check connection string password
+- Verify database `AndroidCA` exists
