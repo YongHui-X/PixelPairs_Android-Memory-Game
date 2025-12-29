@@ -1,54 +1,62 @@
-# Create database AndroidCA 
+-- Create database AndroidCA 
 CREATE DATABASE AndroidCA;
 
-# Use database adoWorkshop 
+-- Use database AndroidCA 
 USE AndroidCA;
 
-# Create users table
+-- Create users table
 CREATE TABLE Users(
-	Username varchar(50) NOT NULL,
-    UserPassword varchar(50) NOT NULL,
-	PRIMARY KEY (Username)
+    Id INT AUTO_INCREMENT,
+    Username VARCHAR(50) NOT NULL UNIQUE,
+    Password VARCHAR(50) NOT NULL,
+    PRIMARY KEY (Id)
 );
 
-# Create user details table
+-- Create user details table (with UserType)
 CREATE TABLE UserDetails(
-	Id bigint NOT NULL auto_increment,
-    Username varchar(50) NOT NULL,
-    UserType varchar(50) NOT NULL,
+    Id BIGINT NOT NULL AUTO_INCREMENT,
+    Username VARCHAR(50) NOT NULL,
+    UserType VARCHAR(10) NOT NULL,
     PRIMARY KEY (Id),
     FOREIGN KEY (Username) REFERENCES Users(Username),
     CONSTRAINT UserDetailsConstraint UNIQUE(Id, Username)
 );
 
-# Create scores table
+-- Create scores table
 CREATE TABLE Scores(
-    Id bigint NOT NULL auto_increment,
-	UserDetailId bigint NOT NULL,
-	Score bigint NOT NULL,
-	PRIMARY KEY (Id),
+    Id BIGINT NOT NULL AUTO_INCREMENT,
+    UserDetailId BIGINT NOT NULL,
+    Score BIGINT NOT NULL,
+    PRIMARY KEY (Id),
     FOREIGN KEY (UserDetailId) REFERENCES UserDetails(Id)
 );
 
-# Insert data into table Users
-INSERT INTO Users(Username, UserPassword)
+-- Insert data into table Users
+INSERT INTO Users(Username, Password)
 VALUES ('johndoe', '12345'),
-		('janedoe', '678910'),
-        ('alice123', '12345'),
-        ('johnsmith', '12345'),
-        ('sarahjane', '12345'),
-        ('johnnylim', '678910');
+       ('janedoe', '678910'),
+       ('alice123', '12345'),
+       ('johnsmith', '12345'),
+       ('sarahjane', '12345'),
+       ('johnnylim', '678910'),
+       ('tin', 'test'),
+       ('cherwah', 'test'),
+       ('michael', 'test');
 
+-- Insert data into UserDetails
+INSERT INTO UserDetails(Username, UserType)
+VALUES ('tin', 'Paid'),
+       ('cherwah', 'Free'),
+       ('michael', 'Free'),
+       ('johnsmith', 'Paid'),
+       ('sarahjane', 'Free'),
+       ('johnnylim', 'Paid'),
+       ('johndoe', 'Free'),
+       ('janedoe', 'Free'),
+       ('alice123', 'Free');
 
-INSERT INTO UserDetails(Id, Username, UserType) 
-VALUES (1, 'johndoe', 'Free'),
-	   (2, 'janedoe', 'Paid'),
-		(3, 'alice123', 'Free'),
-        (4, 'johnsmith', 'Paid'),
-        (5, 'sarahjane', 'Free'),
-        (6, 'johnnylim', 'Paid');
-        
-INSERT INTO Scores(UserDetailId, Score) 
+-- Insert data into Scores
+INSERT INTO Scores(UserDetailId, Score)
 VALUES (1, 100),
        (1, 150),
        (2, 125),
