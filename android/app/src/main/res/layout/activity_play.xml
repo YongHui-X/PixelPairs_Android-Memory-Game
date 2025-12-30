@@ -1,18 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/playRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlayActivity"
     android:background="@color/dark_bg"
-    android:gravity="center">
+    android:padding="12dp"
+    tools:context=".PlayActivity">
 
     <TextView
+        android:id="@+id/Matches"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Under Construction"/>
+        android:text="0/6 matches"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="3/6 matches"/>
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/imgTopCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:src="@drawable/top_image"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/Matches"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/Timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00:00"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="00:03:45"/>
+
+    <TextView
+        android:id="@+id/tvGameStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Match the cards to win"
+        android:textColor="@color/bright_cyan"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:alpha="0.85"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/imgTopCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Match the Cards to win !"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCards"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/controlBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGameStatus"
+        app:spanCount="3"
+        tools:itemCount="12"
+        tools:listitem="@layout/item_card" />
+
+    <LinearLayout
+        android:id="@+id/controlBar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/dark_bg"
+        app:layout_constraintTop_toBottomOf="@id/rvCards"
+        app:layout_constraintBottom_toTopOf="@id/ad"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- ★ Pause / Resume 按钮（icon only） -->
+        <ImageButton
+            android:id="@+id/btnPauseResume"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@null"
+            android:backgroundTint="@null"
+            android:src="@drawable/ic_pause"
+            android:scaleType="centerInside"
+            android:padding="8dp"
+            android:contentDescription="Pause"
+            android:tag="PAUSE"/><!--pause/continue-->
+
+        <ImageButton
+            android:id="@+id/btnStop"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:background="@null"
+            android:backgroundTint="@null"
+            android:src="@drawable/ic_stop"
+            android:scaleType="centerInside"
+            android:padding="8dp"
+            android:contentDescription="Stop"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/ad"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:foreground="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ad Area (Replace it!)"
+            android:textSize="12sp"
+            android:textColor="#80000000"
+            android:layout_gravity="center"
+            tools:ignore="HardcodedText"/>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
