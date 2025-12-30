@@ -6,58 +6,37 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import iss.nus.edu.sg.appfiles.androidca.R
+import iss.nus.edu.sg.appfiles.androidca.models.LeaderboardEntry
 
-// Simple Player data class
-data class Player(
-    val rank: Int,
-    val name: String,
-    val time: String
-)
+class LeaderboardAdapter(private val entries: List<LeaderboardEntry>): RecyclerView.Adapter<LeaderboardAdapter.LeaderboardViewHolder>() {
 
-// Adapter for RecyclerView
-class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.PlayerViewHolder>() {
-
-    // List of players
-    private var players = listOf<Player>()
-
-    // Update the list
-    fun setPlayers(newPlayers: List<Player>) {
-        players = newPlayers
-        notifyDataSetChanged()
+    class LeaderboardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val tvRank: TextView = view.findViewById(R.id.tvRank)
+        val tvName: TextView = view.findViewById(R.id.tvName)
+        val tvTime: TextView = view.findViewById(R.id.tvTime)
     }
 
-    // Create view for each item
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_leaderboard, parent, false)
-        return PlayerViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeaderboardViewHolder{
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_leaderboard, parent, false)
+        return LeaderboardViewHolder(view)
     }
 
-    // Bind data to view
-    override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
-        holder.bind(players[position])
-    }
+    override fun onBindViewHolder(holder: LeaderboardViewHolder, position: Int){
+        val entry = entries[position]
 
-    // How many items?
-    override fun getItemCount(): Int = players.size
-
-    // ViewHolder class
-    class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvRank: TextView = itemView.findViewById(R.id.tvRank)
-        private val tvName: TextView = itemView.findViewById(R.id.tvName)
-        private val tvTime: TextView = itemView.findViewById(R.id.tvTime)
-
-        fun bind(player: Player) {
-            // Show medal for top 3
-            tvRank.text = when (player.rank) {
-                1 -> "First"
-                2 -> "Second"
-                3 -> "Third"
-                else -> "#${player.rank}"
-            }
-
-            tvName.text = player.name
-            tvTime.text = player.time
+        holder.tvRank.text = when (entry.rank){
+            1 -> "🥇"
+            2 -> "🥈"
+            3 -> "🥉"
+            else -> "${entry.rank}"
         }
+
+        holder.tvName.text = entry.username
+
+        val minutes = entry.score / 60
+        val seconds = entry.score % 60
+        holder.tvTime.text = String.format("%02d:%02d", minutes, seconds)
     }
+
+    override fun getItemCount() = entries.size
 }
