@@ -1,5 +1,6 @@
 package iss.nus.edu.sg.appfiles.androidca
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,6 +9,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileOutputStream
+import java.net.URL
 
 class PlayActivity : AppCompatActivity() {
 
@@ -15,7 +23,7 @@ class PlayActivity : AppCompatActivity() {
     private lateinit var tvMatches: TextView
     private lateinit var tvTimer: TextView
 
-    private val cardFaces = mutableListOf<Int>()
+    private val cardFaces = mutableListOf<String>()
 
     private val matched = BooleanArray(12)
 
@@ -81,19 +89,41 @@ class PlayActivity : AppCompatActivity() {
 
 
     private fun setupCards() {
-        val faces = listOf(
-            R.drawable.card_1,
-            R.drawable.card_2,
-            R.drawable.card_3,
-            R.drawable.card_4,
-            R.drawable.card_5,
-            R.drawable.card_6
-        )
+        val selectedUrls = intent.getStringArrayListExtra("selectedImages") ?: arrayListOf()
 
-        cardFaces.clear()
-        cardFaces.addAll(faces)
-        cardFaces.addAll(faces)
-        cardFaces.shuffle()
+        CoroutineScope(Dispatchers.IO).launch {
+            val localPaths = mutableListOf<String>()
+
+            selectedUrls.forEachIndexed { index, url ->
+                try {
+                    val connection = URL(url).openConnection()
+                    connection.setRequestProperty("User-Agent", "Mozilla/5.0")
+                    connection.setRequestProperty("Referer", "https://stocksnap.io/")
+
+                    val inputStream = connection.getInputStream()
+                    val file = File(filesDir, "card_$index.jpg")
+
+                    FileOutputStream(file).use { output ->
+                        inputStream.copyTo(output)
+                    }
+                    inputStream.close()
+
+                    localPaths.add(file.absolutePath)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            withContext(Dispatchers.Main) {
+                cardFaces.clear()
+                cardFaces.addAll(localPaths)  // 6 images
+                cardFaces.addAll(localPaths)  // Duplicate for pairs
+                cardFaces.shuffle()
+
+                adapter.notifyDataSetChanged()
+                startTimer()
+            }
+        }
     }
 
     private fun updateTimerText() {
@@ -166,25 +196,24 @@ class PlayActivity : AppCompatActivity() {
         val holder = rvCards.findViewHolderForAdapterPosition(position)
                 as? CardAdapter.CardViewHolder ?: return
 
-        flipCard(holder.ivCard, false, 0)
+        flipCard(holder.ivCard, false, "")
     }
 
 
     private fun flipCard(
         imageView: ImageView,
         showFront: Boolean,
-        frontRes: Int
+        frontPath: String  // Changed from Int
     ) {
-
         imageView.cameraDistance = 8000 * imageView.resources.displayMetrics.density
 
         imageView.animate()
             .rotationY(90f)
             .setDuration(150)
             .withEndAction {
-
                 if (showFront) {
-                    imageView.setImageResource(frontRes)
+                    val bitmap = BitmapFactory.decodeFile(frontPath)
+                    imageView.setImageBitmap(bitmap)
                 } else {
                     imageView.setImageResource(R.drawable.card_back)
                 }

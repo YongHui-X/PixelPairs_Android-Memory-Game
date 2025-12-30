@@ -1,5 +1,6 @@
 package iss.nus.edu.sg.appfiles.androidca
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 
 class CardAdapter(
-    private val cardFaces: List<Int>,
+    private val cardFaces: List<String>,
     private val matched: BooleanArray,
     private val getFirstIndex: () -> Int,
     private val getSecondIndex: () -> Int,
@@ -39,7 +40,8 @@ class CardAdapter(
         holder.ivCard.rotationY = 0f
 
         if (isMatched) {
-            holder.ivCard.setImageResource(cardFaces[position])
+            val bitmap = BitmapFactory.decodeFile(cardFaces[position])
+            holder.ivCard.setImageBitmap(bitmap)
             holder.ivCard.alpha = 0f
             holder.itemView.isClickable = false
         } else {
@@ -47,7 +49,8 @@ class CardAdapter(
             holder.itemView.isClickable = true
 
             if (shouldShowFront) {
-                holder.ivCard.setImageResource(cardFaces[position])
+                val bitmap = BitmapFactory.decodeFile(cardFaces[position])
+                holder.ivCard.setImageBitmap(bitmap)
             } else {
                 holder.ivCard.setImageResource(R.drawable.card_back)
             }
