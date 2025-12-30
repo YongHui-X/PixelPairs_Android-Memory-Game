@@ -9,6 +9,7 @@
     android:padding="12dp"
     tools:context=".PlayActivity">
 
+<<<<<<< HEAD
     <TextView
         android:id="@+id/Matches"
         android:layout_width="wrap_content"
@@ -117,6 +118,8 @@
 
     </LinearLayout>
 
+=======
+>>>>>>> origin/Aung_V2
     <FrameLayout
         android:id="@+id/ad"
         android:layout_width="0dp"
@@ -127,6 +130,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+<<<<<<< HEAD
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -141,6 +145,13 @@
             android:textColor="#80000000"
             android:layout_gravity="center"
             tools:ignore="HardcodedText"/>
+=======
+        <ImageView
+            android:id="@+id/ads_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" />
+>>>>>>> origin/Aung_V2
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
