@@ -6,7 +6,7 @@ plugins {
 android {
     namespace = "iss.nus.edu.sg.appfiles.androidca"
     compileSdk {
-        version = release(35)
+        version = release(36)
     }
 
     defaultConfig {

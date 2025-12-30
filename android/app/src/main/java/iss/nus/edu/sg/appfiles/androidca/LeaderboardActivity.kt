@@ -7,11 +7,5 @@ class LeaderboardActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
-
-		//add test data for testing
-		intent.putExtra("USERNAME", "TestPlayer")
-		intent.putExtra("SCORE", 999)
-
-		setContentView(R.layout.activity_leadboard)
 	}
 }

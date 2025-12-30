@@ -18,14 +18,5 @@ class PlayActivity : AppCompatActivity() {
 			v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
 			insets
 		}
-
-		// TEMPORARY TEST BUTTON
-		findViewById<Button>(R.id.testButton).setOnClickListener {
-			val intent = Intent(this, LeaderboardActivity::class.java).apply {
-				putExtra("USERNAME", "johndoe")
-				putExtra("SCORE", 9999)
-			}
-			startActivity(intent)
-		}
 	}
 }
