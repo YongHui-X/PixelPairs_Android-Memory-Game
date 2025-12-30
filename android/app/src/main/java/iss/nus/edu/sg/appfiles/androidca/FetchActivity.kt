@@ -17,7 +17,6 @@ import org.jsoup.Jsoup
 import android.content.Intent
 import android.view.View
 import android.widget.Button
-import iss.nus.edu.sg.appfiles.androidca.models.LeaderboardActivity
 
 class FetchActivity : AppCompatActivity() {
 

@@ -143,7 +143,7 @@ namespace DotNetBackend.Controllers
         private string FormatTime(long milliseconds)
         {
             TimeSpan timeSpan = TimeSpan.FromMilliseconds(milliseconds);
-            return timeSpan.ToString(@"mm\:ss");
+            return timeSpan.ToString(@"hh\:mm\:ss");
         }
     }
 }
