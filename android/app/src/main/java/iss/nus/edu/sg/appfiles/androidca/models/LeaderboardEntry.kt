@@ -1,4 +1,8 @@
 package iss.nus.edu.sg.appfiles.androidca.models
 
-class LeaderboardEntry {
-}
+data class LeaderboardEntry (
+    val rank: Int,
+    val username: String,
+    val score: Int
+)
+
