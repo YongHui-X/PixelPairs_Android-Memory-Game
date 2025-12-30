@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".models.LeaderboardActivity"
+        <activity android:name=".LeaderboardActivity"
                     android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -32,10 +32,7 @@ class LeaderboardAdapter(private val entries: List<LeaderboardEntry>): RecyclerV
         }
 
         holder.tvName.text = entry.username
-
-        val minutes = entry.score / 60
-        val seconds = entry.score % 60
-        holder.tvTime.text = String.format("%02d:%02d", minutes, seconds)
+        holder.tvTime.text = entry.formattedTime
     }
 
     override fun getItemCount() = entries.size
