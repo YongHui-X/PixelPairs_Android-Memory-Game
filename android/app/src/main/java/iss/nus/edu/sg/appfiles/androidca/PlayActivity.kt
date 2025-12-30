@@ -16,6 +16,8 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
+import android.content.Intent
+import iss.nus.edu.sg.appfiles.androidca.models.LeaderboardActivity
 
 class PlayActivity : AppCompatActivity() {
 
@@ -166,12 +168,16 @@ class PlayActivity : AppCompatActivity() {
 
         if (matches == 6) {
             stopTimer()
+
+            handler.postDelayed({
+                val leaderboardIntent = Intent(this, LeaderboardActivity::class.java)
+                leaderboardIntent.putExtra("username", getIntent().getStringExtra("username"))
+                leaderboardIntent.putExtra("time", tvTimer.text.toString())
+                startActivity(leaderboardIntent)
+                finish()
+            }, 1500)
         }
     }
-
-
-    // Adapter
-
 
     private fun onCardClicked(position: Int, imageView: ImageView) {
 

@@ -97,11 +97,6 @@ class FetchActivity : AppCompatActivity() {
     private fun startPlayActivity() {
         val selectedImages = images.filter { it.isSelected }.map { it.url }
 
-        val btnShowLeaderboard = findViewById<Button>(R.id.btnShowLeaderboard)
-        btnShowLeaderboard.setOnClickListener {
-            val intent = Intent(this, LeaderboardActivity::class.java)
-            startActivity(intent)
-        }
 
         Intent(this, PlayActivity::class.java).apply {
             putStringArrayListExtra("selectedImages", ArrayList(selectedImages))

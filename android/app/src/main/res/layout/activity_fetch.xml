@@ -95,11 +95,4 @@
         android:backgroundTint="@color/soft_white"
         android:enabled="false"/>
 
-    <Button
-        android:id="@+id/btnShowLeaderboard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show Leaderboard"
-        android:textSize="16sp" />
-
 </LinearLayout>
