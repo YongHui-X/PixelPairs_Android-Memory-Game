@@ -9,4 +9,5 @@
     <string name="url_text">Type your URL here.</string>
     <string name="fetchBtn_text">Fetch</string>
     <string name="progress_text">Downloading placeholder</string>
+    <string name="submit_score">Submitting your score...</string>
 </resources>

@@ -6,7 +6,7 @@ plugins {
 android {
     namespace = "iss.nus.edu.sg.appfiles.androidca"
     compileSdk {
-        version = release(35)
+        version = release(36)
     }
 
     defaultConfig {
@@ -52,8 +52,10 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.jsoup:jsoup:1.18.1")
     implementation("com.github.bumptech.glide:glide:5.0.5")
-
-    testImplementation("junit:junit:4.13.2")
+	implementation(libs.androidx.activity)
+	implementation(libs.androidx.navigation.fragment.ktx)
+	implementation(libs.androidx.navigation.ui.ktx)
+	testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }
