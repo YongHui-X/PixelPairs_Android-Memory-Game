@@ -89,7 +89,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- ★ Pause / Resume 按钮（icon only） -->
         <ImageButton
             android:id="@+id/btnPauseResume"
             android:layout_width="48dp"
