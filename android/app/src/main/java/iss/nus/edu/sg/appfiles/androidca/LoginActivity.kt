@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import iss.nus.edu.sg.appfiles.androidca.databinding.ActivityLoginBinding
+import iss.nus.edu.sg.appfiles.androidca.services.MusicService
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
@@ -17,6 +18,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val intent = Intent(this, MusicService::class.java)
+        intent.putExtra("music", "login")
+        startService(intent)
 
         initButtons()
     }

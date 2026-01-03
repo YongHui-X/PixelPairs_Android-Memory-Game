@@ -17,6 +17,8 @@ import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
 import android.content.Intent
+import iss.nus.edu.sg.appfiles.androidca.adapters.CardAdapter
+import iss.nus.edu.sg.appfiles.androidca.services.MusicService
 
 class PlayActivity : AppCompatActivity() {
 
@@ -41,9 +43,6 @@ class PlayActivity : AppCompatActivity() {
     private val timerHandler = Handler(Looper.getMainLooper())
     private var secondsElapsed = 0
     private var isGameRunning = false
-
-
-
 
     private lateinit var adManager: AdManager
 
@@ -81,6 +80,11 @@ class PlayActivity : AppCompatActivity() {
         saveUserType(isPaidUser)
         adManager = AdManager(this)
         adManager.startAds(findViewById<ImageView>(R.id.ads_image))
+
+        // Music
+        val intent = Intent(this, MusicService::class.java)
+        intent.putExtra("music", "play")
+        startService(intent)
     }
 
     // Display ads on app function

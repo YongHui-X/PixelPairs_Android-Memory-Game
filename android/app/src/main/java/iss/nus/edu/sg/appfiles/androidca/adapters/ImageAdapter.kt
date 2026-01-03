@@ -1,5 +1,6 @@
-package iss.nus.edu.sg.appfiles.androidca
+package iss.nus.edu.sg.appfiles.androidca.adapters
 
+import android.R
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -51,7 +52,7 @@ class ImageAdapter(
             Glide.with(context)
                 .load(glideUrl)
                 .centerCrop()
-                .placeholder(android.R.color.darker_gray)
+                .placeholder(R.color.darker_gray)
                 .into(binding.imageView)
 
             binding.imageView.alpha = if (imageItem.isSelected) 0.5f else 1.0f
