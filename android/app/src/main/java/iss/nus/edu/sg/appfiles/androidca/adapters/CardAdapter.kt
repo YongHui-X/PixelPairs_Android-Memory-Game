@@ -1,4 +1,4 @@
-package iss.nus.edu.sg.appfiles.androidca
+package iss.nus.edu.sg.appfiles.androidca.adapters
 
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import iss.nus.edu.sg.appfiles.androidca.R
 
 class CardAdapter(
     private val cardFaces: List<String>,

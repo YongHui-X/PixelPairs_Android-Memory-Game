@@ -1,0 +1,40 @@
+package iss.nus.edu.sg.appfiles.androidca.services
+
+import android.app.Service
+import android.content.Intent
+import android.media.MediaPlayer
+import android.os.IBinder
+import iss.nus.edu.sg.appfiles.androidca.R
+
+class MusicService : Service() {
+    private var mediaPlayer: MediaPlayer? = null
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val musicType = intent?.getStringExtra("music") ?: "login"
+
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+
+        val musicResource = when(musicType) {
+            "login" -> R.raw.kahoot
+            "play" -> R.raw.magnetic
+            else -> R.raw.kahoot
+        }
+
+        mediaPlayer = MediaPlayer.create(this, musicResource)
+        mediaPlayer?.isLooping = true
+        mediaPlayer?.start()
+
+        return START_STICKY
+    }
+
+    override fun onDestroy() {
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        super.onDestroy()
+    }
+}

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loadingFragment"
-        android:name="iss.nus.edu.sg.appfiles.androidca.LoadingFragment"
+        android:name="iss.nus.edu.sg.appfiles.androidca.fragments.LoadingFragment"
         android:label="fragment_loading"
         tools:layout="@layout/fragment_loading">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/leaderboardFragment"
-        android:name="iss.nus.edu.sg.appfiles.androidca.LeaderboardFragment"
+        android:name="iss.nus.edu.sg.appfiles.androidca.fragments.LeaderboardFragment"
         android:label="fragment_leaderboard"
         tools:layout="@layout/fragment_leaderboard">
     </fragment>

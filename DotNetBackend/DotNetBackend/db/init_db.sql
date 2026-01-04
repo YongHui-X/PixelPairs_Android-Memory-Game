@@ -57,10 +57,10 @@ VALUES ('tin', 'Paid'),
 
 -- Insert data into Scores
 INSERT INTO Scores(UserDetailId, Score)
-VALUES (1, 100),
-       (1, 150),
-       (2, 125),
-       (3, 10),
-       (4, 200),
-       (5, 1000),
+VALUES (1, 10000),
+       (1, 15000),
+       (2, 12500),
+       (3, 10000),
+       (4, 20000),
+       (5, 10000),
        (6, 50000);

@@ -1,11 +1,13 @@
-package iss.nus.edu.sg.appfiles.androidca
+package iss.nus.edu.sg.appfiles.androidca.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import iss.nus.edu.sg.appfiles.androidca.R
 import iss.nus.edu.sg.appfiles.androidca.databinding.FragmentLoadingBinding
 import org.json.JSONObject
 import java.net.HttpURLConnection
@@ -29,14 +31,20 @@ class LoadingFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		val username = requireActivity().intent.getStringExtra("Username") ?: ""
-		val score = requireActivity().intent.getIntExtra("Score", 0)
+		val username = requireActivity().intent.getStringExtra("username") ?: ""
+		val score = requireActivity().intent.getIntExtra("score", 0)
 
+		saveUsername(username)
 		submitScore(username, score)
 
 		binding.retryButton.setOnClickListener {
 			submitScore(username, score)
 		}
+	}
+
+	private fun saveUsername(username: String) {
+		val sharedPref = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+		sharedPref.edit().putString("username", username).apply()
 	}
 
 	private fun submitScore(username: String, score: Int) {
@@ -60,7 +68,7 @@ class LoadingFragment : Fragment() {
 					showError("Network error: ${e.message}")
 				}
 			}
-		}
+		}.start()
 	}
 
 
