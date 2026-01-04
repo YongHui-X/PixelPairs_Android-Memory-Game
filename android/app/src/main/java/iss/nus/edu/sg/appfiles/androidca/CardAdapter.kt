@@ -39,6 +39,8 @@ class CardAdapter(
         // prevent reuse
         holder.ivCard.rotationY = 0f
 
+
+
         if (isMatched) {
             val bitmap = BitmapFactory.decodeFile(cardFaces[position])
             holder.ivCard.setImageBitmap(bitmap)

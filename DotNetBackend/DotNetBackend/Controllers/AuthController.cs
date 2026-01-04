@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
+
 
 namespace DotNetBackend.Controllers
 {
@@ -7,7 +8,7 @@ namespace DotNetBackend.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly string connectionString = "server=localhost;database=AndroidCA;uid=root;pwd=Shadow";
+        private readonly string connectionString = "server=localhost;database=AndroidCA;uid=root;pwd=246810";
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
