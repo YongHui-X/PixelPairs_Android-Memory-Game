@@ -21,16 +21,21 @@ import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageButton
+import android.widget.SeekBar
 import iss.nus.edu.sg.appfiles.androidca.adapters.*
 
 class PlayActivity : AppCompatActivity() {
+
+    //pause board
     private lateinit var pauseOverlay: FrameLayout
     private lateinit var btnPauseResume: ImageButton
     private lateinit var btnResume: Button
     private lateinit var btnQuit: Button
 
+    //pause or not
     private var isPaused = false
 
+    //main play board
     private lateinit var rvCards: RecyclerView
     private lateinit var tvMatches: TextView
     private lateinit var tvTimer: TextView
@@ -39,6 +44,7 @@ class PlayActivity : AppCompatActivity() {
 
     private val matched = BooleanArray(12)
 
+    //clip card 1 and 2
     private var firstIndex = -1
     private var secondIndex = -1
 
@@ -87,6 +93,8 @@ class PlayActivity : AppCompatActivity() {
         btnQuit.setOnClickListener {
             finish()
         }
+
+
 
         rvCards.layoutManager = GridLayoutManager(this, 3)
 
