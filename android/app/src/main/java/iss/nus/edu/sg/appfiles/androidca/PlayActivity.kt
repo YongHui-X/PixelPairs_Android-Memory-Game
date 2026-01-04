@@ -21,7 +21,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageButton
-import iss.nus.edu.sg.appfiles.androidca.models.LeaderboardActivity
+import iss.nus.edu.sg.appfiles.androidca.adapters.*
 
 class PlayActivity : AppCompatActivity() {
     private lateinit var pauseOverlay: FrameLayout
