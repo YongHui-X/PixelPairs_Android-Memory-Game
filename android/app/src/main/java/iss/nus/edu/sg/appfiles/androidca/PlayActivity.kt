@@ -321,8 +321,7 @@ class PlayActivity : AppCompatActivity() {
                 matched[secondIndex] = true
                 updateMatchText()
 
-                fadeOutMatched(firstIndex)
-                fadeOutMatched(secondIndex)
+
             } else {
                 flipBack(firstIndex)
                 flipBack(secondIndex)
@@ -369,7 +368,7 @@ class PlayActivity : AppCompatActivity() {
             }
             .start()
     }
-
+    /* previous fadeout of picture
     private fun fadeOutMatched(position: Int) {
         val holder = rvCards.findViewHolderForAdapterPosition(position)
                 as? CardAdapter.CardViewHolder ?: return
@@ -383,7 +382,7 @@ class PlayActivity : AppCompatActivity() {
             .setDuration(600)
             .start()
     }
-
+    */
     override fun onDestroy() {
         super.onDestroy()
         adManager.stopAds()
