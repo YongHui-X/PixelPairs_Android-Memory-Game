@@ -81,15 +81,14 @@
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:orientation="horizontal"
-        android:gravity="center"
         android:background="@color/dark_bg"
-        app:layout_constraintTop_toBottomOf="@id/rvCards"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/ad"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/rvCards">
 
-        <!-- ★ Pause / Resume 按钮（icon only） -->
         <!--pause/continue-->
 
         <ImageButton
@@ -113,7 +112,6 @@
             android:src="@drawable/ic_stop"
             android:scaleType="centerInside"
             android:tag="PAUSE" />
-
 
 
     </LinearLayout>
@@ -163,7 +161,6 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:layout_marginBottom="16dp"/>
-
             <Button
                 android:id="@+id/btnResume"
                 android:text="Resume"

@@ -25,13 +25,17 @@ import androidx.appcompat.app.AlertDialog
 import iss.nus.edu.sg.appfiles.androidca.adapters.*
 
 class PlayActivity : AppCompatActivity() {
+
+    //pause board
     private lateinit var pauseOverlay: FrameLayout
     private lateinit var btnPauseResume: ImageButton
     private lateinit var btnResume: Button
     private lateinit var btnQuit: Button
 
+    //pause or not
     private var isPaused = false
 
+    //main play board
     private lateinit var rvCards: RecyclerView
     private lateinit var tvMatches: TextView
     private lateinit var tvTimer: TextView
@@ -40,6 +44,7 @@ class PlayActivity : AppCompatActivity() {
 
     private val matched = BooleanArray(12)
 
+    //clip card 1 and 2
     private var firstIndex = -1
     private var secondIndex = -1
 
@@ -98,7 +103,7 @@ class PlayActivity : AppCompatActivity() {
             matched = matched,
             getFirstIndex = { firstIndex },
             getSecondIndex = { secondIndex },
-            isBusy = { isBusy },
+            isBusy = { isBusy || isPaused },  //pause or being used
             onCardClick = { position, imageView ->
                 onCardClicked(position, imageView)
             }
@@ -107,7 +112,7 @@ class PlayActivity : AppCompatActivity() {
         rvCards.adapter = adapter
 
         updateMatchText()
-        startTimer()
+
 
 
         // Display ads on app
@@ -116,7 +121,32 @@ class PlayActivity : AppCompatActivity() {
         adManager = AdManager(this)
         adManager.startAds(findViewById<ImageView>(R.id.ads_image))
 
+
     }
+    //pause function
+    private fun pauseGame() {
+        isPaused = true
+        pauseOverlay.alpha = 0f
+        pauseOverlay.visibility = View.VISIBLE
+        pauseOverlay.animate().alpha(1f).setDuration(200).start()
+
+
+        pauseTimer()
+    }
+
+    private fun resumeGame() {
+        isPaused = false
+        pauseOverlay.animate()
+            .alpha(0f)
+            .setDuration(200)
+            .withEndAction { pauseOverlay.visibility = View.GONE }
+            .start()
+
+
+        resumeTimer()
+    }
+
+
 
     // Display ads on app function
     private fun saveUserType(isPaid: Boolean){
@@ -219,7 +249,7 @@ class PlayActivity : AppCompatActivity() {
             handler.postDelayed({
                 val leaderboardIntent = Intent(this, LeaderboardActivity::class.java)
                 leaderboardIntent.putExtra("username", getIntent().getStringExtra("username"))
-                leaderboardIntent.putExtra("time", tvTimer.text.toString())
+                leaderboardIntent.putExtra("score", secondsElapsed*1000)
                 startActivity(leaderboardIntent)
                 finish()
             }, 1500)
