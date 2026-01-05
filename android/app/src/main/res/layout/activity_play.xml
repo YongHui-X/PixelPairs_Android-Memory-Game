@@ -144,6 +144,7 @@
             android:orientation="vertical"
             android:gravity="center"
             android:padding="24dp"
+            android:background="@color/dark_bg_v2"
             android:layout_gravity="center">
 
             <TextView
