@@ -1,5 +1,6 @@
 package iss.nus.edu.sg.appfiles.androidca
 
+import android.app.ProgressDialog.show
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
@@ -84,7 +85,6 @@ class PlayActivity : AppCompatActivity() {
             }
         }
 
-
         btnResume.setOnClickListener {
             resumeGame()
         }
@@ -123,6 +123,13 @@ class PlayActivity : AppCompatActivity() {
 
 
     }
+
+    // Display ads on app function
+    private fun saveUserType(isPaid: Boolean){
+        val sharedPref = getSharedPreferences("UserType", MODE_PRIVATE)
+        sharedPref.edit().putBoolean("isPaid", isPaid).apply()
+
+    }
     //pause function
     private fun pauseGame() {
         isPaused = true
@@ -141,18 +148,6 @@ class PlayActivity : AppCompatActivity() {
             .setDuration(200)
             .withEndAction { pauseOverlay.visibility = View.GONE }
             .start()
-
-
-        resumeTimer()
-    }
-
-
-
-    // Display ads on app function
-    private fun saveUserType(isPaid: Boolean){
-        val sharedPref = getSharedPreferences("UserType", MODE_PRIVATE)
-        sharedPref.edit().putBoolean("isPaid", isPaid).apply()
-
     }
 
     //timer
@@ -245,6 +240,7 @@ class PlayActivity : AppCompatActivity() {
 
         if (matches == 6) {
             stopTimer()
+            showGameOverDialog()
 
             handler.postDelayed({
                 val leaderboardIntent = Intent(this, LeaderboardActivity::class.java)
