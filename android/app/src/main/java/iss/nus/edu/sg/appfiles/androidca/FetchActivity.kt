@@ -1,9 +1,12 @@
 package iss.nus.edu.sg.appfiles.androidca
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import iss.nus.edu.sg.appfiles.androidca.adapters.ImageAdapter
 import iss.nus.edu.sg.appfiles.androidca.databinding.ActivityFetchBinding
 import iss.nus.edu.sg.appfiles.androidca.models.ImageItem
 import kotlinx.coroutines.Dispatchers
@@ -14,9 +17,6 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.Jsoup
-import android.content.Intent
-import android.view.View
-import iss.nus.edu.sg.appfiles.androidca.adapters.ImageAdapter
 
 class FetchActivity : AppCompatActivity() {
 
@@ -151,6 +151,8 @@ class FetchActivity : AppCompatActivity() {
                                 count++
                                 updateProgress(count)
                             }
+                        } else {
+                            showError("Use https://stocksnap.io/search/food")
                         }
                         if (count > 1) kotlinx.coroutines.delay(500L)
                     }
