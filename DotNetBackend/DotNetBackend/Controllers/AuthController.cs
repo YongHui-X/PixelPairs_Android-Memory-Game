@@ -1,3 +1,5 @@
+using System.Reflection.Metadata;
+using DotNetBackend.Data;
 using Microsoft.AspNetCore.Mvc;
 using MySqlConnector;
 
@@ -8,12 +10,12 @@ namespace DotNetBackend.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly string connectionString = "server=localhost;database=AndroidCA;uid=root;pwd=246810";
+
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            using (MySqlConnection conn = new MySqlConnection(Constants.CONNECTION_STRING))
             {
                 conn.Open();
 

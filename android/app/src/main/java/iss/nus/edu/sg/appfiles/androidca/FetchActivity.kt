@@ -151,6 +151,8 @@ class FetchActivity : AppCompatActivity() {
                                 count++
                                 updateProgress(count)
                             }
+                        } else if (imgUrl.contains("https://stocksnap.io/")){
+                            continue
                         } else {
                             showError("Use https://stocksnap.io/search/food")
                         }
