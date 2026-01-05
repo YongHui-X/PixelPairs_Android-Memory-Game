@@ -2,6 +2,6 @@
 {
     public class Constants
     {
-        public static string CONNECTION_STRING = @"server=localhost;uid=root;pwd=root;database=androidca";
+        public static string CONNECTION_STRING = @"server=localhost;uid=root;pwd=246810;database=androidca";
     }
 }
