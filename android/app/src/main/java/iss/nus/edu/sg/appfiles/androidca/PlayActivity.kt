@@ -250,13 +250,13 @@ class PlayActivity : AppCompatActivity() {
             stopTimer()
             showGameOverDialog()
 
-            handler.postDelayed({
-                val leaderboardIntent = Intent(this, LeaderboardActivity::class.java)
-                leaderboardIntent.putExtra("username", getIntent().getStringExtra("username"))
-                leaderboardIntent.putExtra("score", secondsElapsed*1000)
-                startActivity(leaderboardIntent)
-                finish()
-            }, 1500)
+//            handler.postDelayed({
+//                val leaderboardIntent = Intent(this, LeaderboardActivity::class.java)
+//                leaderboardIntent.putExtra("username", getIntent().getStringExtra("username"))
+//                leaderboardIntent.putExtra("score", secondsElapsed*1000)
+//                startActivity(leaderboardIntent)
+//                finish()
+//            }, 1500)
         }
     }
 
@@ -294,7 +294,7 @@ class PlayActivity : AppCompatActivity() {
     private fun goToLeaderboard() {
         val intent = Intent(this, LeaderboardActivity::class.java)
         intent.putExtra("username", getIntent().getStringExtra("username"))
-        intent.putExtra("time", secondsElapsed)
+        intent.putExtra("score", secondsElapsed*1000)
         startActivity(intent)
         finish()
     }
