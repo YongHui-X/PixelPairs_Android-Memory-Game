@@ -1,5 +1,5 @@
 ﻿using DotNetBackend.Models;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 namespace DotNetBackend.Data
 {
     public class ScoresDAO
