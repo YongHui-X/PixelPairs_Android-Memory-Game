@@ -19,6 +19,8 @@
         <activity
             android:name=".FetchActivity"
             android:exported="false" />
+        <activity android:name=".LeaderboardActivity"
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -28,11 +30,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LeaderboardActivity"
-                    android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
+
+        <service android:name=".services.MusicService" />
     </application>
 
 </manifest>

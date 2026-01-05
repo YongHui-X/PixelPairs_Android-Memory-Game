@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import iss.nus.edu.sg.appfiles.androidca.adapters.ImageAdapter
 import iss.nus.edu.sg.appfiles.androidca.databinding.ActivityFetchBinding
 import iss.nus.edu.sg.appfiles.androidca.models.ImageItem
+import iss.nus.edu.sg.appfiles.androidca.services.MusicService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.isActive
@@ -36,6 +37,10 @@ class FetchActivity : AppCompatActivity() {
 
         username = intent.getStringExtra("username")
         isPaid = intent.getBooleanExtra("isPaid", false)
+
+        val intent = Intent(this, MusicService::class.java)
+        intent.putExtra("music", "login")
+        startService(intent)
 
         setupUI()
     }

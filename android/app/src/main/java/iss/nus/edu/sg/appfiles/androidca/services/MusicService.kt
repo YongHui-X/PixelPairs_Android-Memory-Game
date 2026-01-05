@@ -14,6 +14,19 @@ class MusicService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val action = intent?.action
+
+        when(action) {
+            "pause" -> {
+                mediaPlayer?.pause()
+                return START_NOT_STICKY
+            }
+            "resume" -> {
+                mediaPlayer?.start()
+                return START_NOT_STICKY
+            }
+        }
+
         val musicType = intent?.getStringExtra("music") ?: "login"
 
         mediaPlayer?.stop()
