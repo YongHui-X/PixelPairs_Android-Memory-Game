@@ -380,5 +380,4 @@ class PlayActivity : AppCompatActivity() {
         super.onDestroy()
         adManager.stopAds()
     }
-
 }
