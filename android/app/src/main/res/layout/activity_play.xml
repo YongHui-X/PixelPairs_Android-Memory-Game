@@ -89,6 +89,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- ★ Pause / Resume 按钮（icon only） -->
+        <!--pause/continue-->
+
         <ImageButton
             android:id="@+id/btnPauseResume"
             android:layout_width="48dp"
@@ -96,10 +99,8 @@
             android:layout_marginEnd="16dp"
             android:background="@null"
             android:backgroundTint="@null"
-            android:src="@drawable/ic_pause"
-            android:scaleType="centerInside"
-            android:padding="8dp"
             android:contentDescription="Pause"
+            android:padding="8dp"
             android:tag="PAUSE"/><!--pause/continue-->
 
         <ImageButton
@@ -111,8 +112,9 @@
             android:backgroundTint="@null"
             android:src="@drawable/ic_stop"
             android:scaleType="centerInside"
-            android:padding="8dp"
-            android:contentDescription="Stop"/>
+            android:tag="PAUSE" />
+
+
 
     </LinearLayout>
 
@@ -133,5 +135,50 @@
             android:scaleType="fitXY" />
 
     </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/pauseOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#AA000000"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp"
+            android:layout_gravity="center">
+
+            <TextView
+                android:text="PAUSED"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/btnResume"
+                android:text="Resume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/btnQuit"
+                android:text="Homepage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+    </FrameLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

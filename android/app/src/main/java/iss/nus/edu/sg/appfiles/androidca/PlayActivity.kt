@@ -17,13 +17,20 @@ import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
 import android.content.Intent
+import android.view.View
 import android.widget.Button
-import org.json.JSONObject
-import java.net.HttpURLConnection
+import android.widget.FrameLayout
+import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
-
+import iss.nus.edu.sg.appfiles.androidca.adapters.*
 
 class PlayActivity : AppCompatActivity() {
+    private lateinit var pauseOverlay: FrameLayout
+    private lateinit var btnPauseResume: ImageButton
+    private lateinit var btnResume: Button
+    private lateinit var btnQuit: Button
+
+    private var isPaused = false
 
     private lateinit var rvCards: RecyclerView
     private lateinit var tvMatches: TextView
@@ -47,6 +54,9 @@ class PlayActivity : AppCompatActivity() {
     private var secondsElapsed = 0
     private var isGameRunning = false
 
+
+
+
     private lateinit var adManager: AdManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +66,28 @@ class PlayActivity : AppCompatActivity() {
         tvMatches = findViewById(R.id.Matches)
         rvCards = findViewById(R.id.rvCards)
         tvTimer = findViewById(R.id.Timer)
+
+        //pause function
+        pauseOverlay = findViewById(R.id.pauseOverlay)
+        btnPauseResume = findViewById(R.id.btnPauseResume)
+        btnResume = findViewById(R.id.btnResume)
+        btnQuit = findViewById(R.id.btnQuit)
+
+        btnPauseResume.setOnClickListener {
+            if (!isPaused) {
+                pauseGame()
+            }
+        }
+
+
+        btnResume.setOnClickListener {
+            resumeGame()
+        }
+
+
+        btnQuit.setOnClickListener {
+            finish()
+        }
 
         rvCards.layoutManager = GridLayoutManager(this, 3)
 
@@ -93,6 +125,7 @@ class PlayActivity : AppCompatActivity() {
 
     }
 
+    //timer
 
     private fun startTimer() {
         secondsElapsed = 0
@@ -105,6 +138,13 @@ class PlayActivity : AppCompatActivity() {
         timerHandler.removeCallbacks(timerRunnable)
     }
 
+    private fun pauseTimer() {
+        timerHandler.removeCallbacks(timerRunnable)
+    }
+
+    private fun resumeTimer() {
+        timerHandler.postDelayed(timerRunnable, 1000)
+    }
 
 
     private fun setupCards() {
@@ -153,11 +193,16 @@ class PlayActivity : AppCompatActivity() {
         tvTimer.text = String.format("%02d:%02d:%02d", hours, minutes, seconds)
     }
 
+
+
+
     private val timerRunnable = object : Runnable {
         override fun run() {
-            if (isGameRunning) {
+            if (isGameRunning && !isPaused) {
                 secondsElapsed++
                 updateTimerText()
+            }
+            if (isGameRunning) {
                 timerHandler.postDelayed(this, 1000)
             }
         }
@@ -171,16 +216,13 @@ class PlayActivity : AppCompatActivity() {
         if (matches == 6) {
             stopTimer()
 
-			handler.postDelayed({
-				val leaderboardIntent = Intent(this, LeaderboardActivity::class.java)
-				leaderboardIntent.putExtra("username", getIntent().getStringExtra("username"))
-				leaderboardIntent.putExtra("score", secondsElapsed * 1000)
-				startActivity(leaderboardIntent)
-				finish()
-			}, 1500)
             handler.postDelayed({
-                showGameOverDialog()
-            }, 800)
+                val leaderboardIntent = Intent(this, LeaderboardActivity::class.java)
+                leaderboardIntent.putExtra("username", getIntent().getStringExtra("username"))
+                leaderboardIntent.putExtra("time", tvTimer.text.toString())
+                startActivity(leaderboardIntent)
+                finish()
+            }, 1500)
         }
     }
 
@@ -224,6 +266,8 @@ class PlayActivity : AppCompatActivity() {
     }
 
     private fun onCardClicked(position: Int, imageView: ImageView) {
+
+        if (isPaused) return  //if paused not allowed to click
 
         if (firstIndex == -1) {
             firstIndex = position
