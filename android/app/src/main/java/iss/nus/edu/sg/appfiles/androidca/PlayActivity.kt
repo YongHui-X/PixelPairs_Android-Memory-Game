@@ -23,6 +23,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.SeekBar
 import iss.nus.edu.sg.appfiles.androidca.adapters.*
+import iss.nus.edu.sg.appfiles.androidca.services.MusicService
 
 class PlayActivity : AppCompatActivity() {
 
@@ -115,15 +116,15 @@ class PlayActivity : AppCompatActivity() {
 
         updateMatchText()
 
-
-
         // Display ads on app
         val isPaidUser = intent.getBooleanExtra("isPaid", false)
         saveUserType(isPaidUser)
         adManager = AdManager(this)
         adManager.startAds(findViewById<ImageView>(R.id.ads_image))
 
-
+        val intent = Intent(this, MusicService::class.java)
+        intent.putExtra("music", "play")
+        startService(intent)
     }
     //pause function
     private fun pauseGame() {
@@ -148,8 +149,6 @@ class PlayActivity : AppCompatActivity() {
         resumeTimer()
     }
 
-
-
     // Display ads on app function
     private fun saveUserType(isPaid: Boolean){
         val sharedPref = getSharedPreferences("UserType", MODE_PRIVATE)
@@ -158,7 +157,6 @@ class PlayActivity : AppCompatActivity() {
     }
 
     //timer
-
     private fun startTimer() {
         secondsElapsed = 0
         isGameRunning = true
