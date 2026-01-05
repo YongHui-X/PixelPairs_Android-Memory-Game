@@ -100,8 +100,17 @@
             android:backgroundTint="@null"
             android:contentDescription="Pause"
             android:padding="8dp"
+            android:tag="PAUSE"/><!--pause/continue-->
+
+        <ImageButton
+            android:id="@+id/btnStop"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:background="@null"
+            android:backgroundTint="@null"
+            android:src="@drawable/ic_stop"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_pause"
             android:tag="PAUSE" />
 
 
@@ -142,7 +151,6 @@
             android:orientation="vertical"
             android:gravity="center"
             android:padding="24dp"
-            android:background="@color/dark_bg_v2"
             android:layout_gravity="center">
 
             <TextView

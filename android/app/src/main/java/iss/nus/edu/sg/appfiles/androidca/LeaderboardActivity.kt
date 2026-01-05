@@ -7,5 +7,9 @@ class LeaderboardActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_leaderboard)
-	}
+
+        val time = intent.getLongExtra("time", 0)
+        val score = intent.getIntExtra("score", 0)
+
+    }
 }

@@ -21,7 +21,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageButton
-import android.widget.SeekBar
+import androidx.appcompat.app.AlertDialog
 import iss.nus.edu.sg.appfiles.androidca.adapters.*
 import iss.nus.edu.sg.appfiles.androidca.services.MusicService
 
@@ -116,6 +116,8 @@ class PlayActivity : AppCompatActivity() {
 
         updateMatchText()
 
+
+
         // Display ads on app
         val isPaidUser = intent.getBooleanExtra("isPaid", false)
         saveUserType(isPaidUser)
@@ -157,6 +159,7 @@ class PlayActivity : AppCompatActivity() {
     }
 
     //timer
+
     private fun startTimer() {
         secondsElapsed = 0
         isGameRunning = true
@@ -245,6 +248,7 @@ class PlayActivity : AppCompatActivity() {
 
         if (matches == 6) {
             stopTimer()
+            showGameOverDialog()
 
             handler.postDelayed({
                 val leaderboardIntent = Intent(this, LeaderboardActivity::class.java)
@@ -254,6 +258,45 @@ class PlayActivity : AppCompatActivity() {
                 finish()
             }, 1500)
         }
+    }
+
+    private fun showGameOverDialog() {
+
+        val dialogView = layoutInflater.inflate(
+            R.layout.dialog_game_over,
+            null
+        )
+
+        val tvGameTime = dialogView.findViewById<TextView>(R.id.tvGameTime)
+        val btnOk = dialogView.findViewById<Button>(R.id.btnGameOverOk)
+
+        tvGameTime.text = "Your time: ${formatTime(secondsElapsed)}"
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        btnOk.setOnClickListener {
+            dialog.dismiss()
+            goToLeaderboard()
+        }
+
+        dialog.show()
+    }
+
+    private fun formatTime(totalSeconds: Int): String {
+        val minutes = totalSeconds / 60
+        val seconds = totalSeconds % 60
+        return String.format("%02d:%02d", minutes, seconds)
+    }
+
+    private fun goToLeaderboard() {
+        val intent = Intent(this, LeaderboardActivity::class.java)
+        intent.putExtra("username", getIntent().getStringExtra("username"))
+        intent.putExtra("time", secondsElapsed)
+        startActivity(intent)
+        finish()
     }
 
     private fun onCardClicked(position: Int, imageView: ImageView) {
