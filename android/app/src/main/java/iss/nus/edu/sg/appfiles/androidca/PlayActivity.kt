@@ -1,6 +1,5 @@
 package iss.nus.edu.sg.appfiles.androidca
 
-import android.app.ProgressDialog.show
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
@@ -24,6 +23,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import iss.nus.edu.sg.appfiles.androidca.adapters.*
+import iss.nus.edu.sg.appfiles.androidca.services.MusicService
 
 class PlayActivity : AppCompatActivity() {
 
@@ -85,6 +85,7 @@ class PlayActivity : AppCompatActivity() {
             }
         }
 
+
         btnResume.setOnClickListener {
             resumeGame()
         }
@@ -93,6 +94,8 @@ class PlayActivity : AppCompatActivity() {
         btnQuit.setOnClickListener {
             finish()
         }
+
+
 
         rvCards.layoutManager = GridLayoutManager(this, 3)
 
@@ -121,14 +124,9 @@ class PlayActivity : AppCompatActivity() {
         adManager = AdManager(this)
         adManager.startAds(findViewById<ImageView>(R.id.ads_image))
 
-
-    }
-
-    // Display ads on app function
-    private fun saveUserType(isPaid: Boolean){
-        val sharedPref = getSharedPreferences("UserType", MODE_PRIVATE)
-        sharedPref.edit().putBoolean("isPaid", isPaid).apply()
-
+        val intent = Intent(this, MusicService::class.java)
+        intent.putExtra("music", "play")
+        startService(intent)
     }
     //pause function
     private fun pauseGame() {
@@ -148,6 +146,16 @@ class PlayActivity : AppCompatActivity() {
             .setDuration(200)
             .withEndAction { pauseOverlay.visibility = View.GONE }
             .start()
+
+
+        resumeTimer()
+    }
+
+    // Display ads on app function
+    private fun saveUserType(isPaid: Boolean){
+        val sharedPref = getSharedPreferences("UserType", MODE_PRIVATE)
+        sharedPref.edit().putBoolean("isPaid", isPaid).apply()
+
     }
 
     //timer
@@ -380,4 +388,5 @@ class PlayActivity : AppCompatActivity() {
         super.onDestroy()
         adManager.stopAds()
     }
+
 }
