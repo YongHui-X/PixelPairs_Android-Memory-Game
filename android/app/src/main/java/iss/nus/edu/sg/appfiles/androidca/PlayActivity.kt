@@ -92,6 +92,10 @@ class PlayActivity : AppCompatActivity() {
 
 
         btnQuit.setOnClickListener {
+            val intent = Intent(this, MusicService::class.java)
+            intent.putExtra("music", "login")
+            startService(intent)
+
             finish()
         }
 
@@ -137,6 +141,10 @@ class PlayActivity : AppCompatActivity() {
 
 
         pauseTimer()
+
+        val intent = Intent(this, MusicService::class.java)
+        intent.action = "pause"
+        startService(intent)
     }
 
     private fun resumeGame() {
@@ -149,6 +157,10 @@ class PlayActivity : AppCompatActivity() {
 
 
         resumeTimer()
+
+        val intent = Intent(this, MusicService::class.java)
+        intent.action = "resume"
+        startService(intent)
     }
 
     // Display ads on app function
