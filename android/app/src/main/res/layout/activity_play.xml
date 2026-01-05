@@ -99,19 +99,12 @@
             android:background="@null"
             android:backgroundTint="@null"
             android:contentDescription="Pause"
+            android:src="@drawable/ic_pause"
             android:padding="8dp"
+            android:scaleType="centerInside"
             android:tag="PAUSE"/><!--pause/continue-->
 
-        <ImageButton
-            android:id="@+id/btnStop"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:background="@null"
-            android:backgroundTint="@null"
-            android:src="@drawable/ic_stop"
-            android:scaleType="centerInside"
-            android:tag="PAUSE" />
+
 
 
     </LinearLayout>
