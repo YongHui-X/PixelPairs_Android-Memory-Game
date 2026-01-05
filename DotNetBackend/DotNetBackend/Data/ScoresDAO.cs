@@ -1,5 +1,5 @@
 ﻿using DotNetBackend.Models;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 namespace DotNetBackend.Data
 {
     public class ScoresDAO
@@ -39,7 +39,7 @@ namespace DotNetBackend.Data
             {
                 conn.Open();
                 string sql = @"SELECT UD.Username,
-                              MAX(S.Score) AS Score
+                              MIN(S.Score) AS Score
                               FROM UserDetails UD
                               JOIN Scores S ON UD.Id = S.UserDetailId
                               GROUP BY UD.Username
