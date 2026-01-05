@@ -20,7 +20,7 @@ namespace DotNetBackend.Controllers
                 string query = @"SELECT u.Username, ud.UserType 
                                 FROM Users u 
                                 INNER JOIN UserDetails ud ON u.Username = ud.Username
-                                WHERE u.Username = @username AND u.Password = @password";
+                                WHERE BINARY u.Username = @username AND BINARY u.Password = @password";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
