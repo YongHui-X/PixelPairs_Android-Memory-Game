@@ -1,4 +1,4 @@
-package iss.nus.edu.sg.appfiles.androidca
+package iss.nus.edu.sg.appfiles.androidca.fragments
 
 
 import android.content.Context
@@ -12,6 +12,8 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import iss.nus.edu.sg.appfiles.androidca.FetchActivity
+import iss.nus.edu.sg.appfiles.androidca.R
 import iss.nus.edu.sg.appfiles.androidca.adapters.LeaderboardAdapter
 import iss.nus.edu.sg.appfiles.androidca.models.LeaderboardEntry
 import org.json.JSONObject

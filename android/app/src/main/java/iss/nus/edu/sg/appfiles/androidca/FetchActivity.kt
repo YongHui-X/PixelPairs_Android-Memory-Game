@@ -16,7 +16,7 @@ import okhttp3.Request
 import org.jsoup.Jsoup
 import android.content.Intent
 import android.view.View
-import android.widget.Button
+import iss.nus.edu.sg.appfiles.androidca.adapters.ImageAdapter
 
 class FetchActivity : AppCompatActivity() {
 
@@ -56,7 +56,7 @@ class FetchActivity : AppCompatActivity() {
                 if (selectedCount == 6) {
                     startPlayActivity()
                 } else {
-                    Toast.makeText(this@FetchActivity, "Please select exactly 6 images", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@FetchActivity, "PlbuildFeatures {VewviewBinding = trueease select exactly 6 images", Toast.LENGTH_SHORT).show()
                 }
             }
             fetchBtn.setOnClickListener {

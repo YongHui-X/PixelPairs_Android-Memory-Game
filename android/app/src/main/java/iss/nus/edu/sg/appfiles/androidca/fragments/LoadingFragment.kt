@@ -1,4 +1,4 @@
-package iss.nus.edu.sg.appfiles.androidca
+package iss.nus.edu.sg.appfiles.androidca.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import iss.nus.edu.sg.appfiles.androidca.R
 import iss.nus.edu.sg.appfiles.androidca.databinding.FragmentLoadingBinding
 import org.json.JSONObject
 import java.net.HttpURLConnection

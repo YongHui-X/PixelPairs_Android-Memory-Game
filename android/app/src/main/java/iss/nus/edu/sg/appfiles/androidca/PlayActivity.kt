@@ -22,6 +22,7 @@ import org.json.JSONObject
 import java.net.HttpURLConnection
 import androidx.appcompat.app.AlertDialog
 
+
 class PlayActivity : AppCompatActivity() {
 
     private lateinit var rvCards: RecyclerView
@@ -45,7 +46,6 @@ class PlayActivity : AppCompatActivity() {
     private val timerHandler = Handler(Looper.getMainLooper())
     private var secondsElapsed = 0
     private var isGameRunning = false
-
 
     private lateinit var adManager: AdManager
 
@@ -83,6 +83,7 @@ class PlayActivity : AppCompatActivity() {
         saveUserType(isPaidUser)
         adManager = AdManager(this)
         adManager.startAds(findViewById<ImageView>(R.id.ads_image))
+
     }
 
     // Display ads on app function
@@ -169,14 +170,14 @@ class PlayActivity : AppCompatActivity() {
 
         if (matches == 6) {
             stopTimer()
-/*
+
 			handler.postDelayed({
 				val leaderboardIntent = Intent(this, LeaderboardActivity::class.java)
 				leaderboardIntent.putExtra("username", getIntent().getStringExtra("username"))
 				leaderboardIntent.putExtra("score", secondsElapsed * 1000)
 				startActivity(leaderboardIntent)
 				finish()
-			}, 1500)*/
+			}, 1500)
             handler.postDelayed({
                 showGameOverDialog()
             }, 800)
@@ -309,4 +310,5 @@ class PlayActivity : AppCompatActivity() {
         super.onDestroy()
         adManager.stopAds()
     }
+
 }
