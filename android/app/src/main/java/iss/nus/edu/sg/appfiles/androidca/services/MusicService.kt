@@ -27,9 +27,14 @@ class MusicService : Service() {
 
         mediaPlayer = MediaPlayer.create(this, musicResource)
         mediaPlayer?.isLooping = true
+        mediaPlayer?.setOnErrorListener { _, _, _ ->
+            mediaPlayer?.release()
+            stopSelf()
+            true
+        }
         mediaPlayer?.start()
 
-        return START_STICKY
+        return START_NOT_STICKY
     }
 
     override fun onDestroy() {
