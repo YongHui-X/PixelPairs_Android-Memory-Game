@@ -251,7 +251,7 @@ class PlayActivity : AppCompatActivity() {
             handler.postDelayed({
                 val leaderboardIntent = Intent(this, LeaderboardActivity::class.java)
                 leaderboardIntent.putExtra("username", getIntent().getStringExtra("username"))
-                leaderboardIntent.putExtra("time", tvTimer.text.toString())
+                leaderboardIntent.putExtra("score", secondsElapsed*1000)
                 startActivity(leaderboardIntent)
                 finish()
             }, 1500)

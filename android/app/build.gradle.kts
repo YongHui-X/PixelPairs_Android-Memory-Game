@@ -53,9 +53,12 @@ dependencies {
     implementation("org.jsoup:jsoup:1.18.1")
     implementation("com.github.bumptech.glide:glide:5.0.5")
 
-    val nav_version = "2.7.6"
-	implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
-	implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+//    val nav_version = "2.7.6"
+//	implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+//	implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+        implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
+        implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
+
 
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
