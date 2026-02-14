@@ -1,4 +1,4 @@
- # AndroidCA -- Memory Card Matching Game
+ # Pixel Pairs-- Android Memory Card Matching Game
 
   A collaborative Android application where users fetch images from the web and play a memory card matching game. Built
   with Kotlin (Android) and ASP.NET Core (.NET backend).
